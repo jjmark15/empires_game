@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:empires_game/player_entry.dart';
 import 'package:empires_game/terminal_utils.dart';
 
-
 class EmpiresGame {
   static const Duration reelDelay = Duration(seconds: 2);
   List<PlayerEntry> entries;
