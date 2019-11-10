@@ -1,5 +1,5 @@
-import 'package:empires_game/empires_game.dart' as empires_game;
+import 'package:empires_game/empires_game.dart' show EmpiresGame;
 
-main(List<String> arguments) {
-  print('Hello world: ${empires_game.calculate()}!');
+void main(List<String> arguments) {
+  EmpiresGame().play();
 }
