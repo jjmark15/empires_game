@@ -8,6 +8,10 @@ class EmpiresGame {
   List<PlayerEntry> entries;
   int playerCount = 0;
 
+  bool get shouldRequestPlayerCount {
+    return playerCount == 0;
+  }
+
   void setPlayerCount(int playerCount) {
     this.playerCount = playerCount;
   }
@@ -74,7 +78,7 @@ class EmpiresGame {
   }
 
   void play() async {
-    if (this.playerCount == 0) setPlayerCount(await acceptPlayerCount());
+    if (shouldRequestPlayerCount) setPlayerCount(await acceptPlayerCount());
     print("Let the game begin!!");
     this.entries = await this.acceptAllPlayerEntries(this.playerCount);
     awaitReadyToReelOff();
