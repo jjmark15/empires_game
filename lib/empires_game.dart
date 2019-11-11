@@ -4,9 +4,13 @@ import 'package:empires_game/player_entry.dart';
 import 'package:empires_game/terminal_utils.dart';
 
 class EmpiresGame {
-  static const Duration reelDelay = Duration(seconds: 2);
+  static const Duration REEL_DELAY = Duration(seconds: 2);
   List<PlayerEntry> entries;
-  int playerCount;
+  int playerCount = 0;
+
+  void setPlayerCount(int playerCount) {
+    this.playerCount = playerCount;
+  }
 
   Future<PlayerEntry> acceptPlayerEntry() async {
     stdout.write("Player name: ");
@@ -48,12 +52,11 @@ class EmpiresGame {
 
   static void reelOffWords(List<String> words, int numberOfReveals) async {
     clearTerminal();
-    List<String> shuffled = List.from(words);
-    shuffled.shuffle();
+    List<String> shuffled = List.from(words)..shuffle();
     for (int i = 0; i < numberOfReveals; i++) {
       for (String word in shuffled) {
         print(word);
-        await Future.delayed(reelDelay);
+        await Future.delayed(REEL_DELAY);
       }
       clearTerminal();
     }
@@ -71,7 +74,7 @@ class EmpiresGame {
   }
 
   void play() async {
-    this.playerCount = await this.acceptPlayerCount();
+    if (this.playerCount == 0) setPlayerCount(await acceptPlayerCount());
     print("Let the game begin!!");
     this.entries = await this.acceptAllPlayerEntries(this.playerCount);
     awaitReadyToReelOff();
